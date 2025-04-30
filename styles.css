@@ -1,0 +1,90 @@
+body {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    font-family: 'Inter', sans-serif;
+    color: #f0f0f0;
+  }
+
+  h1, h4, h5 {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .nav-tabs .nav-link.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .nav-tabs .nav-link {
+    color: #ccc;
+  }
+
+  .table {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .table thead {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .card-modern {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid #007bff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  }
+
+  .team-badge {
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .form-select {
+    max-width: 200px;
+    background-color: #1b1b1b;
+    color: #fff;
+    border: 1px solid #007bff;
+  }
+
+  .highlight {
+    color: #ffd700;
+    font-weight: 600;
+  }
+
+  .card {
+  background: linear-gradient(145deg, #1c1f26, #101214);
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(88, 166, 255, 0.4);
+}
+
+.card img {
+  filter: drop-shadow(0 0 4px rgba(88, 166, 255, 0.3));
+}
+
+.clasificado{
+    background-color: #fff3cd !important; /* amarillo suave */
+    font-weight: bold;
+    border-left: 5px solid #04be23;
+}
+.mi-equipo {
+    background-color: #fff3cd !important; /* amarillo suave */
+    font-weight: bold;
+    border-left: 5px solid #ffc107;
+  }
+  .w-40 { width: 40%; }
+  .card .img-fluid { max-height: 40px; }
+
+  .card-futbol {
+    background: linear-gradient(145deg, #222, #333);
+    color: white;
+    border: 1px solid #444;
+  }

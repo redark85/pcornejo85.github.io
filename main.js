@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="col">
             <div class="card h-100 text-center border-0 bg-dark text-light shadow-lg">
               <div class="card-body d-flex flex-column align-items-center">
-                <img src="https://i.imgur.com/QvupOW2.png" alt="${equipo}" class="mb-3" style="width: 60px; height: 60px; object-fit: contain;">
+                <img src="${obtenerEscudo(equipo)}" alt="${equipo}" class="mb-3" style="width: 60px; height: 60px; object-fit: contain;">
                 <h5 class="card-title mb-0">${equipo}</h5>
                 <small class="mt-1">Grupo ${grupo}</small>
               </div>
@@ -225,14 +225,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 <small class="d-block mb-2">Grupo ${p.grupo}</small>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="text-center w-40">
-                    <img src="https://i.imgur.com/QvupOW2.png" alt="${p.equipo1}" class="img-fluid mb-1" style="height: 40px;">
+                    <img src="${obtenerEscudo(p.equipo1)}" alt="${p.equipo1}" class="img-fluid mb-1" style="height: 40px;">
                     <div class="${p.equipo1 === equipoFavorito ? 'fw-bold text-primary' : ''}">
                       ${p.equipo1}
                     </div>
                   </div>
                   <div class="fw-bold fs-5">${p.resultado}</div>
                   <div class="text-center w-40">
-                    <img src="https://i.imgur.com/QvupOW2.png" alt="${p.equipo2}" class="img-fluid mb-1" style="height: 40px;">
+                    <img src="${obtenerEscudo(p.equipo2)}" alt="${p.equipo2}" class="img-fluid mb-1" style="height: 40px;">
                     <div class="${p.equipo2 === equipoFavorito ? 'fw-bold text-primary' : ''}">
                       ${p.equipo2}
                     </div>
@@ -262,8 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
     torneoData.equipos.forEach(e => {
       const option = document.createElement("option");
-      option.value = e;
-      option.textContent = e;
+      option.value = e.nombre;
+      option.textContent = e.nombre;
       select.appendChild(option);
     });
   }
@@ -307,12 +307,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 <small class="d-block mb-2">${p.hora} hs | Grupo ${p.grupo}</small>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="text-center w-40">
-                    <img src="https://i.imgur.com/QvupOW2.png" alt="${p.equipo1}" class="img-fluid mb-1" style="height: 40px;">
+                    <img src="${obtenerEscudo(p.equipo1)}" alt="${p.equipo1}" class="img-fluid mb-1" style="height: 40px;">
                     <div class="${p.equipo1 === equipoFavorito ? 'fw-bold text-primary' : ''}">${p.equipo1}</div>
                   </div>
                   <div class="fw-bold fs-5">vs</div>
                   <div class="text-center w-40">
-                    <img src="https://i.imgur.com/QvupOW2.png" alt="${p.equipo2}" class="img-fluid mb-1" style="height: 40px;">
+                    <img src="${obtenerEscudo(p.equipo2)}" alt="${p.equipo2}" class="img-fluid mb-1" style="height: 40px;">
                     <div class="${p.equipo2 === equipoFavorito ? 'fw-bold text-primary' : ''}">${p.equipo2}</div>
                   </div>
                 </div>
@@ -327,3 +327,8 @@ document.addEventListener("DOMContentLoaded", () => {
     container.innerHTML = html;
   }
   
+  function obtenerEscudo(nombre) {
+    const equipo = torneoData.equipos.find(e => e.nombre === nombre);
+    console.log(equipo);
+    return equipo ? equipo.escudo : 'https://via.placeholder.com/40';
+  }

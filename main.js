@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarPosiciones();
     mostrarPartidosJugados();
     poblarFiltroEquipos();
-
+    mostrarProximosPartidos();
   });
   
   function mostrarGrupos(filtroGrupo = "") {
@@ -250,8 +250,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function formatearFecha(fechaStr) {
+    const [year, month, day] = fechaStr.split("-");
+    const fecha = new Date(year, month - 1, day);
     const opciones = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-    const fecha = new Date(fechaStr);
     return fecha.toLocaleDateString('es-ES', opciones);
   }
 
@@ -266,3 +267,63 @@ document.addEventListener("DOMContentLoaded", () => {
       select.appendChild(option);
     });
   }
+
+  //Prosimos partidos
+  function mostrarProximosPartidos() {
+    const container = document.getElementById("listaProximosPartidos");
+    container.innerHTML = "";
+  
+    const partidosFuturos = torneoData.partidos.filter(p => !p.resultado);
+  
+    if (partidosFuturos.length === 0) {
+      container.innerHTML = "<p class='text-muted'>No hay próximos partidos.</p>";
+      return;
+    }
+  
+    // Agrupar por fecha
+    const porFecha = {};
+    partidosFuturos.forEach(p => {
+      if (!porFecha[p.fecha]) porFecha[p.fecha] = [];
+      porFecha[p.fecha].push(p);
+    });
+  
+    const fechas = Object.keys(porFecha).sort((a, b) => new Date(a) - new Date(b));
+    let html = '';
+  
+    fechas.forEach(fecha => {
+      // Ordenar por hora dentro de la fecha
+      const partidosEnFecha = porFecha[fecha].sort((a, b) => a.hora.localeCompare(b.hora));
+      html += `<h6 class="mt-4 text-secondary">${formatearFecha(fecha)}</h6>`;
+      html += '<div class="row g-3">';
+  
+      partidosEnFecha.forEach(p => {
+        const esMiEquipo = [p.equipo1, p.equipo2].includes(equipoFavorito);
+        const estilo = esMiEquipo ? 'border-warning shadow-sm' : 'border-secondary';
+  
+        html += `
+          <div class="col-md-6 col-lg-4">
+            <div class="card bg-dark text-white ${estilo} h-100">
+              <div class="card-body text-center">
+                <small class="d-block mb-2">${p.hora} hs | Grupo ${p.grupo}</small>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="text-center w-40">
+                    <img src="https://i.imgur.com/QvupOW2.png" alt="${p.equipo1}" class="img-fluid mb-1" style="height: 40px;">
+                    <div class="${p.equipo1 === equipoFavorito ? 'fw-bold text-primary' : ''}">${p.equipo1}</div>
+                  </div>
+                  <div class="fw-bold fs-5">vs</div>
+                  <div class="text-center w-40">
+                    <img src="https://i.imgur.com/QvupOW2.png" alt="${p.equipo2}" class="img-fluid mb-1" style="height: 40px;">
+                    <div class="${p.equipo2 === equipoFavorito ? 'fw-bold text-primary' : ''}">${p.equipo2}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      });
+  
+      html += '</div>';
+    });
+  
+    container.innerHTML = html;
+  }
+  
